@@ -214,6 +214,12 @@ module.exports.findLabelsByPostId = (postId) => {
     where: {post_id: postId}
   });
 };
+module.exports.getAllLikes = () => {
+  return models.likes.findAll().then(likes => {
+    return likes;
+  })
+}
+>>>>>>> add database query for likes
 
 // Used when getting an array of models that contain foreign keys
 // and, for each instance in the array, will replace the foreign

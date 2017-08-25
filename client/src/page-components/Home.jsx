@@ -7,6 +7,8 @@ import SearchBox from 'react-google-maps/lib/places/SearchBox';
 import Nav from '../components/Nav.jsx';
 import TrailList from '../components/TrailList.jsx';
 import CircularProgress from 'material-ui/CircularProgress';
+import { letterFrequency } from '@vx/mock-data';
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -33,6 +35,7 @@ class Home extends React.Component {
   componentDidMount() {
     //Not sure what the lines below do.
     //Note, right now the geolocation is just HTML5.
+    console.log(letterFrequency);
     gps.getLocation()
     .then(value => {
       //First, we are going to get the location, then set it inside of an object.
@@ -111,6 +114,8 @@ class Home extends React.Component {
         </div>
         <div className='col-narrow'>
           {this.state.markers.length > 0 ? <TrailList onClick={this.trailClick} markers={this.state.markers} /> : <CircularProgress size={200} thickness={10} style={{'width': '50%', 'position': 'relative', 'left': '25%'}} />}
+        </div>
+        <div>
         </div>
       </div>
     );

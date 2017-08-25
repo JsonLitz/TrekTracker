@@ -3,7 +3,7 @@ import { letterFrequency } from '@vx/mock-data';
 import { Group } from '@vx/group';
 import { Bar } from '@vx/shape';
 import { scaleLinear, scaleBand } from '@vx/scale';
-
+import { AxisLeft, AxisBottom } from '@vx/axis';
 // We'll use some mock data from `@vx/mock-data` for this.
 const data = letterFrequency;
 // Define the graph dimensions and margins

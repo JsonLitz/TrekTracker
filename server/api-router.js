@@ -15,6 +15,13 @@ router.get('/posts', (req, res) => {
   });
 });
 
+router.get('/likes', (req, res) => {
+  db.getAllLikes()
+  .then(likes => {
+    res.send(likes);
+  })
+})
+
 router.post('/posts', (req, res) => {
   var post = req.body.photo;
   var post_id;
