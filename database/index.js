@@ -219,7 +219,6 @@ module.exports.getAllLikes = () => {
     return likes;
   })
 }
->>>>>>> add database query for likes
 
 // Used when getting an array of models that contain foreign keys
 // and, for each instance in the array, will replace the foreign
