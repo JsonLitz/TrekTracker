@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Posts from '../components/Posts.jsx';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 class PostsContainer extends React.Component {
 	constructor(props) {

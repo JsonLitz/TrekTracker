@@ -4,6 +4,10 @@ import { Group } from '@vx/group';
 import { Bar } from '@vx/shape';
 import { scaleLinear, scaleBand } from '@vx/scale';
 import { AxisLeft, AxisBottom } from '@vx/axis';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import axios from 'axios';
+
+
 // We'll use some mock data from `@vx/mock-data` for this.
 const data = letterFrequency;
 // Define the graph dimensions and margins
@@ -36,25 +40,51 @@ const xPoint = compose(xScale, x);
 const yPoint = compose(yScale, y);
 
 // Finally we'll embed it all in an SVG
-function BarGraph(props) {
-  return (
-    <svg width={width} height={height}>
-      {data.map((d, i) => {
-        const barHeight = yMax - yPoint(d);
-        return (
-          <Group key={`bar-${i}`}>
-            <Bar
-              x={xPoint(d)}
-              y={yMax - barHeight}
-              height={barHeight}
-              width={xScale.bandwidth()}
-              fill='#fc2e1c'
-            />
-          </Group>
-        );
-      })}
-    </svg>
-  );
+class BarGraph extends React.Component {
+  constructor(props){
+    super(props);
+    this.state= {
+      data:[]
+    }
+    this.getLikes = this.getLikes.bind(this);
+
+  }
+  getLikes(){
+    axios.get('/api/likes')
+    .then(res => {
+      console.log('this is the response',res);
+      this.setState({
+        data: res.data
+      })
+    })
+    console.log(data);
+    console.log('likes', this.state.likes);
+  }
+  render() {
+    return (
+      <div>
+        <svg width={width} height={height}>
+          {data.map((d, i) => {
+            const barHeight = yMax - yPoint(d);
+            return (
+              <Group key={`bar-${i}`}>
+                <Bar
+                  x={xPoint(d)}
+                  y={yMax - barHeight}
+                  height={barHeight}
+                  width={xScale.bandwidth()}
+                  fill='#fc2e1c'
+                />
+              </Group>
+            );
+          })}
+        </svg>
+        <FloatingActionButton
+          onClick = {this.getLikes}>
+        </FloatingActionButton>
+      </div>
+    );
+  }
 }
 
 export default BarGraph;

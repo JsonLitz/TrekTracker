@@ -218,7 +218,7 @@ module.exports.findLabelsByPostId = (postId) => {
   });
 };
 module.exports.getAllLikes = () => {
-  var query = "select p.trail_id, sum(l.like) from posts p, likes l where p.id = l.postId and l.like = 1 group by p.trail_id;"
+  var query = "select p.trail_id, count(p.id) AS totalPosts, sum(case when l.like = 1 then 1 else 0 end) as totalLikes from posts p left outer join likes l on p.id = l.postId and l.like = 1 group by p.trail_id;"
   return sequelize.query(query).spread((results, metadata) => {
     return results;
   })
