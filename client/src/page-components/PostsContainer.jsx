@@ -25,6 +25,7 @@ class PostsContainer extends React.Component {
 	getLikes(){
 		axios.get('/api/likes')
 		.then(res => {
+			console.log('this is the response',res);
 			this.setState({
 				likes: res.data
 			})

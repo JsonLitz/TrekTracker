@@ -1,5 +1,8 @@
 var models = require('./models');
-
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config.json')[env];
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 
 module.exports.getUserByEmail = (email) => {
@@ -215,10 +218,20 @@ module.exports.findLabelsByPostId = (postId) => {
   });
 };
 module.exports.getAllLikes = () => {
-  return models.likes.findAll().then(likes => {
-    return likes;
+  var query = "select p.trail_id, sum(l.like) from posts p, likes l where p.id = l.postId and l.like = 1 group by p.trail_id;"
+  return sequelize.query(query).spread((results, metadata) => {
+    return results;
   })
 }
+
+// module.exports.getAllLikes2 = () => {
+//   return models.posts.findAll({include: [models.likes]})
+//   .then((results) => {
+//     console.log('results', results);
+//   })
+//
+// }
+//
 
 // Used when getting an array of models that contain foreign keys
 // and, for each instance in the array, will replace the foreign

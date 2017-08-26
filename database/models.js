@@ -136,6 +136,10 @@ var Likes = sequelize.define('likes', {
   }
 });
 
+// Posts.hasMany(Likes, {foreignKey: 'like'})
+// Likes.belongsTo(Posts, {foreignKey: 'like'})
+
+
 Posts.belongsToMany(Users, {
   through: Likes
 });
@@ -161,7 +165,7 @@ var Labels = sequelize.define('labels', {
     type: Sequelize.DECIMAL(10, 2),
     notEmpty: true,
     allowNull: false
-  } 
+  }
 });
 
 Labels.belongsTo(Posts, {
